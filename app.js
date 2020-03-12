@@ -28,17 +28,10 @@ function findIn(sourceObject, targetObject) {
 function search(arr, x){
     //Если последний элемент не удовлетворяет искомые значения
     if (!findIn(x, arr[arr.length - 1])){
-        let backUp = arr[arr.length - 1];
-        arr[arr.length - 1] = x;
-
         for (let i = 0; i < arr.length; i++){
-           if (findIn(x, arr[i]) && i < arr.length - 1){
-                return arr[i];
-           }
+           if (findIn(x, arr[i]) && i < arr.length - 1) return arr[i];
         }
-    }else {
-        return arr[arr.length - 1];
-    }
+    }else return arr[arr.length - 1];
 }
 
 console.log(search(dataArr, needToFind));
