@@ -9,8 +9,12 @@ const countCPU = os.length; //КАК количество доступных в�
 const dataArr = randomData(randomArraySize); //Массив с рандомными объектами
 const subArrSize = Math.ceil(randomArraySize / countCPU); //Количество значений в подмассиве
 
-const needToFind = {}; //Необходимо найти
-needToFind[Object.keys(dataArr[6])[0]] = Object.values(dataArr[6])[0];
+//Необходимо найти
+//Для теста взято значение в определенном объекте
+const needToFind = {
+    [Object.keys(dataArr[6])[0]] : Object.values(dataArr[6])[0]
+};
+
 //Функция для разбивки основного массива на количество потоков
 function getSlicedArr(arr, subArrSize, slicedArr = []){
     for (let i = 0; i < arr.length; i += subArrSize){
