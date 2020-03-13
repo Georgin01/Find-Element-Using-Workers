@@ -1,5 +1,4 @@
-const os = require('os').cpus(); //для правильного подсчета количества воркеров
-const { Worker } = require('worker_threads');
+const { Worker, parentPort } = require('worker_threads');
 
 const randomData = require('./randomizeData'); //Рандомно сгенерированный массив с объектами
 
@@ -38,4 +37,21 @@ function search(arr, x){
     }else return arr[arr.length - 1];
 }
 
-console.log(search(dataArr, needToFind));
+//НАЧАЛО РАБОТЫ С ПОТОКАМИ
+function evalInWorker(){
+    return new Promise((res, rej) =>{
+        try {
+            const worker = new Worker(__filename, {eval: true});
+            worker.on('error', e => rej(e));
+            worker.on('message', msg => {
+                res(msg);
+            });
+            worker.on('exit', code => {
+                if(code !== 0)
+                   rej(new Error(`Worker stopped with exit code ${code}`));
+            });
+        }catch (e) {
+            rej(e);
+        }
+    });
+}
