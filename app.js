@@ -1,4 +1,4 @@
-const { Worker, isMainThread, parentPort } = require('worker_threads');
+const { Worker} = require('worker_threads');
 const os = require('os').cpus(); //для правильного подсчета количества воркеров
 const path = require('path');
 
