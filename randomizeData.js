@@ -5,7 +5,7 @@ const getObjRandomData = (objNum) => {
 
     randomObj['num'] = objNum;
     for (let i = 0; i < 30; i++){
-        randomObj[i] = (Math.random() * 10).toFixed(4);
+        randomObj[i] = (Math.random() * 10).toFixed(2);
     }
     return randomObj;
 };
