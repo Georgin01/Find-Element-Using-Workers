@@ -5,7 +5,7 @@ const path = require('path');
 const randomData = require('./randomizeData'); //Рандомно сгенерированный массив с объектами
 
 //Набор опций
-const randomArraySize = 10000;                                  //Размер массива рандомных данных
+const randomArraySize = 5000;                                  //Размер массива рандомных данных
 const countCPU = os.length;                                     //КАК количество доступных воркеров
 const dataArr = randomData(randomArraySize);                    //Массив с рандомными объектами
 const subArrSize = Math.ceil(randomArraySize / countCPU);    //Количество значений в подмассиве
@@ -19,7 +19,7 @@ function getSlicedArr(arr, subArrSize, slicedArr = []){
     return slicedArr;
 }
 
-//======   НАЧАЛО РАБОТЫ С ПОТОКАМИ   =====
+//======   НАЧАЛО РАБОТЫ С ПОТОКАМИ   ======
 function evalInWorker(arr){
     return new Promise((res, rej) =>{
         const worker = new Worker(workerScript, { workerData: arr });
@@ -38,7 +38,7 @@ function evalInWorker(arr){
 async function tasks(subArrSize, arr = []){
     getSlicedArr(dataArr, subArrSize).map(e => arr.push(evalInWorker(e)));
     return await Promise.all(arr)
-        .then(r => console.log(r , r.length + ` elem`));
+        .then(r => console.log(r));
 }
 
 async function run(subArrSize){
